@@ -14,7 +14,7 @@ The npm package ships compiled ES modules and TypeScript declarations. Install i
 npm install @uninterface/uninterface@0.0.3 @uninterface/backend@npm:@uninterface/backend-bootstrap@6.0.0-alpha1
 ```
 
-Use TypeScript's `Bundler` module resolution to resolve the package's type exports. For source development, resolve `@uninterface/backend` to the checkout and use the workspace's local Core.
+Use TypeScript's `Bundler` module resolution to resolve the package's type exports. For local development, follow the [native test instructions](testing.md#run-the-backends-native-tests) and install this checkout's development dependencies with `npm ci`.
 
 ## Configure Vite
 

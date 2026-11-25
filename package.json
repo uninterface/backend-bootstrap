@@ -9,7 +9,9 @@
   },
   "type": "module",
   "scripts": {
-    "build": "node scripts/build-package.mjs"
+    "build": "node scripts/build-package.mjs",
+    "test:dom": "node --test testing/*.test.mjs",
+    "test:browser": "playwright test --config testing/playwright.config.ts"
   },
   "exports": {
     ".": "./src/index.ts",

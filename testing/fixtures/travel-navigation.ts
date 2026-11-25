@@ -130,6 +130,7 @@ export async function mountTravel(
   app.config.warnHandler = (message) => warnings.push(message)
   const host = document.body.appendChild(document.createElement('div'))
   await app.ui.ready
+  await app.ui.i18n.loadNamespace('uninterface.entries')
   app.mount(host)
   async function tick() {
     await nextTick()

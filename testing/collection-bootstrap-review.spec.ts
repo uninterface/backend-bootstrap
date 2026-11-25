@@ -28,7 +28,7 @@ for (const scenario of [
   { width: 1500, height: 1000, direction: 'ltr', theme: 'light' },
   { width: 600, height: 650, direction: 'rtl', theme: 'dark' },
 ]) {
-  test(`Bootstrap KI-045–048 ${scenario.width}px ${scenario.direction} ${scenario.theme}`, async ({
+  test(`Bootstrap collection geometry ${scenario.width}px ${scenario.direction} ${scenario.theme}`, async ({
     page,
   }, info) => {
     await page.setViewportSize(scenario)

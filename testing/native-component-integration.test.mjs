@@ -6,7 +6,7 @@ import { build } from './fixture-build.mjs'
 test('native button variants and indicators follow the declared treatments', () =>
   withBuiltDomFixture(
     build,
-    new URL('../../../tests/fixtures/buttons.ts', import.meta.url),
+    new URL('./fixtures/buttons.ts', import.meta.url),
     async ({ mountButton }) => {
       const treatment = (value) =>
         ({
@@ -71,7 +71,7 @@ test('native button variants and indicators follow the declared treatments', () 
 test('settings icon uses the native 16px artwork viewport', () =>
   withBuiltDomFixture(
     build,
-    new URL('../../../tests/fixtures/common-icons.ts', import.meta.url),
+    new URL('./fixtures/common-icons.ts', import.meta.url),
     async ({ mount }) => {
       for (const custom of [false, true]) {
         const app = await mount(custom)
@@ -94,7 +94,7 @@ test('settings icon uses the native 16px artwork viewport', () =>
 test('layout density uses the native spacing at each strategy scope', () =>
   withBuiltDomFixture(
     build,
-    new URL('../../../tests/fixtures/layout-density.ts', import.meta.url),
+    new URL('./fixtures/layout-density.ts', import.meta.url),
     async ({ mountDensity }) => {
       const expected = [
         'var(--bs-spacer-2)',
@@ -146,7 +146,7 @@ test('layout density uses the native spacing at each strategy scope', () =>
 test('collection footer slots follow the native DOM order', () =>
   withBuiltDomFixture(
     build,
-    new URL('../../../tests/fixtures/collection-footer.ts', import.meta.url),
+    new URL('./fixtures/collection-footer.ts', import.meta.url),
     async ({ mountCollectionFooter }) => {
       const example = await mountCollectionFooter()
       try {
@@ -166,7 +166,7 @@ test('collection footer slots follow the native DOM order', () =>
 test('temporal pickers use their native parts and date format', () =>
   withBuiltDomFixture(
     build,
-    new URL('../../../tests/fixtures/temporal-pickers.ts', import.meta.url),
+    new URL('./fixtures/temporal-pickers.ts', import.meta.url),
     async ({ mount }, window) => {
       const demo = await mount()
       const { document } = window
@@ -201,7 +201,7 @@ test('temporal pickers use their native parts and date format', () =>
 test('table cell alignment uses physical direction after RTL changes', () =>
   withBuiltDomFixture(
     build,
-    new URL('../../../tests/fixtures/table-sizing.ts', import.meta.url),
+    new URL('./fixtures/table-sizing.ts', import.meta.url),
     async ({ mountSizing }, window) => {
       Object.defineProperty(window.HTMLElement.prototype, 'clientWidth', {
         get: () => 800,

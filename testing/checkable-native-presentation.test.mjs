@@ -6,7 +6,7 @@ import { build } from './fixture-build.mjs'
 test('native radio and checkbox variants retain semantics at every size', () =>
   withBuiltDomFixture(
     build,
-    new URL('../../../tests/fixtures/checkable-alignment.ts', import.meta.url),
+    new URL('./fixtures/checkable-alignment.ts', import.meta.url),
     async ({ mountCheckableAlignment }) => {
       const fixture = await mountCheckableAlignment()
       try {

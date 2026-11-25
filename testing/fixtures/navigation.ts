@@ -46,6 +46,7 @@ export async function mountNavigation(navbar: boolean) {
   })
   app.config.errorHandler = (error) => errors.push(String(error))
   await app.ui.ready
+  await app.ui.i18n.loadNamespace('uninterface.entries')
   app.mount(host)
   await nextTick()
   return {
