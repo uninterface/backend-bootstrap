@@ -1,0 +1,180 @@
+<script setup lang="ts">
+  import { useUiZView } from '@uninterface/uninterface/backend'
+  useUiZView()
+
+  import { focusBootstrapTarget as focusUiTarget } from './focusTarget'
+  import { computed, ref, inject, onScopeDispose } from 'vue'
+  import {
+    useUiFieldDescription,
+    useUiFieldFailure,
+    type UiSelectViewProps,
+  } from '@uninterface/uninterface/backend'
+  import { useControlSize } from './controlSize'
+  import { floatingLabelKey } from './fieldLayout'
+  import { useSelectPopup } from './selectPopup'
+  defineOptions({ inheritAttrs: false })
+  const props = defineProps<UiSelectViewProps>()
+  const emit = defineEmits<{
+    update: [value: string]
+    blur: []
+    requestLoad: []
+  }>()
+  // A direct form-control sibling retains Bootstrap's native floating-label CSS.
+  const floatingField = inject(floatingLabelKey, undefined)
+  if (floatingField) onScopeDispose(floatingField.register())
+  const element = ref<HTMLButtonElement>()
+  const menu = ref<HTMLElement>()
+  const description = useUiFieldDescription(() => props.binding, 'replace-help')
+  const invalid = useUiFieldFailure(() => props.binding)
+  const size = useControlSize('UiSelect')
+  const selected = computed(() =>
+    props.options.find((option) => option.value === props.value),
+  )
+  const label = computed(() => selected.value?.label ?? props.value)
+  const isPlaceholder = computed(
+    () => props.value === '' && Boolean(selected.value?.hidden),
+  )
+  const candidates = computed(() =>
+    props.options.filter((option) => !option.hidden),
+  )
+  const popup = useSelectPopup({
+    root: element,
+    element,
+    menu,
+    multiple: false,
+    disabled: () => props.binding.disabled,
+    requestLoad: () => emit('requestLoad'),
+    blur: () => emit('blur'),
+    select(key) {
+      if (props.binding.disabled || !props.available) return false
+      const option = candidates.value.find((option) => option.value === key)
+      if (!option || option.disabled) return false
+      if (key !== props.value) emit('update', key)
+      return true
+    },
+  })
+  defineExpose({
+    focus: () =>
+      focusUiTarget(
+        () => element.value,
+        () => props.binding.disabled,
+      ),
+  })
+</script>
+<template>
+  <button
+    ref="element"
+    v-bind="$attrs"
+    :id="binding.id"
+    type="button"
+    role="combobox"
+    class="form-control combobox-toggle bootstrap-select bootstrap-control-focus"
+    :class="[size, { 'is-invalid': invalid }]"
+    :disabled="binding.disabled"
+    aria-haspopup="listbox"
+    aria-expanded="false"
+    :aria-controls="`${binding.id}-choices`"
+    :aria-required="binding.required || undefined"
+    :aria-invalid="binding.invalid || undefined"
+    :aria-busy="binding.validating || status.pending || undefined"
+    :aria-describedby="
+      [description, status.message ? `${binding.id}-source-status` : undefined]
+        .filter(Boolean)
+        .join(' ') || undefined
+    "
+    @click="popup.toggle"
+    @keydown.capture="popup.keydown"
+    @focusout="popup.blur"
+  >
+    <span
+      class="combobox-value"
+      :class="{ 'combobox-placeholder': isPlaceholder }"
+    >
+      <span>{{ label || '\u00a0' }}</span>
+    </span>
+    <svg
+      class="combobox-caret"
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="currentColor"
+      aria-hidden="true"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708"
+      />
+    </svg>
+  </button>
+  <div
+    ref="menu"
+    :id="`${binding.id}-choices`"
+    class="menu bootstrap-entry-popup bootstrap-select-menu"
+    role="listbox"
+    :aria-labelledby="binding.id"
+    popover="manual"
+    @keydown.capture="popup.keydown"
+    @focusout="popup.blur"
+  >
+    <template
+      v-for="(option, index) in candidates"
+      :key="option.value"
+    >
+      <div
+        v-if="
+          option.group !== undefined &&
+          option.group !== candidates[index - 1]?.group
+        "
+        class="menu-header"
+        role="presentation"
+      >
+        {{ option.group }}
+      </div>
+      <button
+        type="button"
+        class="menu-item"
+        :class="{ selected: value === option.value }"
+        role="option"
+        tabindex="-1"
+        :data-bs-value="option.value"
+        :data-bs-label="option.label"
+        :data-uninterface-key="option.value"
+        :aria-selected="value === option.value"
+        :disabled="!available || option.disabled"
+        :aria-disabled="!available || option.disabled || undefined"
+      >
+        <span class="menu-item-content">{{ option.label }}</span>
+        <span
+          class="menu-item-check"
+          aria-hidden="true"
+        >
+          <svg
+            v-if="value === option.value"
+            width="16"
+            height="16"
+            fill="currentColor"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M13.485 1.929a1 1 0 0 1 .086 1.412l-7 8a1 1 0 0 1-1.498.01l-3.5-4a1 1 0 1 1 1.506-1.318L5.825 9.17l6.247-7.14a1 1 0 0 1 1.413-.1z"
+            />
+          </svg>
+        </span>
+      </button>
+    </template>
+    <div
+      v-if="status.message"
+      class="menu-item-text"
+    >
+      {{ status.message }}
+    </div>
+  </div>
+  <span
+    :id="`${binding.id}-source-status`"
+    :data-uninterface-source-state="status.state"
+    class="visually-hidden bootstrap-select-status"
+    role="status"
+  >
+    {{ status.message }}
+  </span>
+</template>

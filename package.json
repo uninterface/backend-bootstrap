@@ -1,0 +1,143 @@
+{
+  "name": "@uninterface/backend-bootstrap",
+  "version": "6.0.0-alpha1",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uninterface/backend-bootstrap.git"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-package.mjs"
+  },
+  "exports": {
+    ".": "./src/index.ts",
+    "./style.css": "./src/style.css",
+    "./capabilities.json": "./capabilities.json",
+    "./*.vue": "./src/*.vue",
+    "./integration": "./src/integration.ts",
+    "./layout": "./src/layout.ts",
+    "./testing": "./testing/index.ts",
+    "./testing/dom": "./testing/dom.mjs",
+    "./focus": "./src/focus.ts",
+    "./font.css": "./src/font.css",
+    "./font-bundled.css": "./src/font-bundled.css"
+  },
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "dependencies": {
+    "bootstrap": "6.0.0-alpha.1",
+    "@fontsource-variable/geist": "5.3.0",
+    "@fontsource-variable/inter": "5.3.0",
+    "@fontsource-variable/noto-sans-sc": "5.3.1",
+    "@fontsource-variable/noto-sans-tc": "5.3.1"
+  },
+  "peerDependencies": {
+    "@uninterface/testing": "~0.0.2",
+    "@uninterface/uninterface": "~0.0.3",
+    "vue": "^3.5.43"
+  },
+  "peerDependenciesMeta": {
+    "@uninterface/testing": {
+      "optional": true
+    }
+  },
+  "description": "Bootstrap presentation backend for Uninterface.",
+  "devDependencies": {
+    "@playwright/test": "1.56.1",
+    "@uninterface/testing": "0.0.2",
+    "@uninterface/fonts": "0.0.2",
+    "@uninterface/uninterface": "0.0.3",
+    "@vitejs/plugin-vue": "6.0.10",
+    "jsdom": "27.4.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.7",
+    "vue": "3.5.43",
+    "vue-tsc": "3.1.1"
+  },
+  "uninterface": {
+    "testing": {
+      "typography": "testing/typography.json",
+      "componentConformance": {
+        "collectionFooterSharesAt435": true,
+        "retainsEditorsOnColumnReorder": true,
+        "checkableModes": [
+          "flushed",
+          "control-aligned",
+          "separated"
+        ],
+        "fieldLabels": {
+          "placements": [
+            "beside-near",
+            "beside-far",
+            "floating"
+          ],
+          "resolves": {
+            "beside": "beside-far"
+          }
+        },
+        "fieldSizing": {
+          "small": {
+            "fontSize": "smaller"
+          },
+          "extraLarge": {
+            "fontSize": "same",
+            "height": "larger"
+          }
+        },
+        "fieldHelp": "replace-help",
+        "loadingIndicator": {
+          "selector": ".spinner-border",
+          "motion": "slows"
+        },
+        "navigation": "disclosure",
+        "segmentedLabelBeside": true
+      },
+      "popoverArrow": {
+        "selector": ".popover-arrow",
+        "placementAttribute": "data-bs-placement"
+      },
+      "dom": [
+        "testing/checkable-native-presentation.test.mjs",
+        "testing/native-component-integration.test.mjs",
+        "testing/strategy-native-presentation.test.mjs",
+        "testing/collapsible-presentation.test.mjs",
+        "testing/select-dom.test.mjs",
+        "testing/navigation.test.mjs",
+        "testing/temporal.test.mjs",
+        "testing/upload-presentation.test.mjs",
+        "testing/reveal-focus.test.mjs",
+        "testing/paginator-presentation.test.mjs",
+        "testing/feedback-presentation.test.mjs",
+        "testing/popover-presentation.test.mjs",
+        "testing/overlay-arrows.test.mjs",
+        "testing/region-framing.test.mjs",
+        "testing/neutral-button.test.mjs",
+        "testing/native-import-lifetime.test.mjs",
+        "testing/native-import-assembly.test.mjs"
+      ],
+      "reference": {
+        "page": "testing/native-reference.html",
+        "browser": "testing/native-reference.spec.ts"
+      },
+      "browser": [
+        "testing/native-paint.spec.ts",
+        "testing/collection-bootstrap-review.spec.ts",
+        "testing/presentation.spec.ts",
+        "testing/region-framing.spec.ts",
+        "testing/navigation-browser.spec.ts",
+        "testing/component-conformance.spec.ts",
+        "testing/select.spec.ts",
+        "testing/temporal.spec.ts",
+        "testing/table-sorting.spec.ts"
+      ],
+      "paginatorGeometry": {
+        "sizeSurface": ".bootstrap-paginator-size select",
+        "jumperSurface": ".bootstrap-paginator-jumper input",
+        "jumperRoot": ".bootstrap-paginator-jumper"
+      }
+    }
+  }
+}
