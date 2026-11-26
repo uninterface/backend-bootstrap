@@ -1,6 +1,6 @@
 {
   "name": "@uninterface/backend-bootstrap",
-  "version": "6.0.0-alpha1",
+  "version": "6.0.0",
   "private": true,
   "license": "MIT",
   "repository": {
@@ -40,8 +40,8 @@
     "@fontsource-variable/noto-sans-tc": "5.3.1"
   },
   "peerDependencies": {
-    "@uninterface/testing": "~0.0.2",
-    "@uninterface/uninterface": "~0.0.3",
+    "@uninterface/testing": "^0.1.0",
+    "@uninterface/uninterface": "^0.1.0",
     "vue": "^3.5.18"
   },
   "peerDependenciesMeta": {
@@ -52,9 +52,9 @@
   "description": "Bootstrap presentation backend for Uninterface.",
   "devDependencies": {
     "@playwright/test": "1.56.1",
-    "@uninterface/testing": "0.0.2",
-    "@uninterface/fonts": "0.0.2",
-    "@uninterface/uninterface": "0.0.3",
+    "@uninterface/testing": "0.1.0",
+    "@uninterface/fonts": "0.1.0",
+    "@uninterface/uninterface": "0.1.0",
     "@vitejs/plugin-vue": "6.0.10",
     "jsdom": "27.4.0",
     "typescript": "5.9.3",

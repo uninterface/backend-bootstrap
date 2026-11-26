@@ -11,7 +11,7 @@ Use Node.js 24 or 26, Vue compatible with core's `^3.5.18` peer dependency, Vue-
 The npm package ships compiled ES modules and TypeScript declarations. Install it under the alias `@uninterface/backend` so Core can resolve its views and integration descriptor.
 
 ```sh
-npm install @uninterface/uninterface @uninterface/backend@npm:@uninterface/backend-bootstrap@6.0.0-alpha1
+npm install @uninterface/uninterface@^0.1.0 @uninterface/backend@npm:@uninterface/backend-bootstrap@6.0.0
 ```
 
 Choose a Core version that satisfies the selected backend release's peer dependency.
