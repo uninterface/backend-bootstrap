@@ -18,6 +18,7 @@
   const props = defineProps<{ binding: UiFieldViewBinding }>()
   const controlSize = useControlSize('UiField')
   const policy = useUiFieldStrategies(() => props.binding, {
+    ...{ feedbackRoot: element },
     help: 'replace-help',
     failureModes: ['show-below', 'show-tooltip'],
     labels: (value) =>
@@ -30,6 +31,11 @@
             !checkboxLayout.value &&
             floatingEditors.value === 1),
   })
+  const deferFeedback = computed(
+    () =>
+      'inlineFeedbackDeferred' in policy.value &&
+      policy.value.inlineFeedbackDeferred === true,
+  )
   const floatingEditors = ref(0)
   provide(floatingLabelKey, {
     active: computed(() => policy.value.labels === 'floating'),
@@ -169,6 +175,7 @@
         v-if="policy.issue && policy.failure !== 'show-tooltip'"
         :id="`${binding.id}-issue`"
         class="invalid-feedback d-block"
+        :class="{ 'visually-hidden': deferFeedback }"
       >
         {{ policy.issue }}
       </div>
@@ -185,6 +192,7 @@
         v-if="policy.issue && policy.failure !== 'show-tooltip'"
         :id="`${binding.id}-issue`"
         class="invalid-feedback d-block"
+        :class="{ 'visually-hidden': deferFeedback }"
       >
         {{ policy.issue }}
       </div>
