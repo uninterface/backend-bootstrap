@@ -33,7 +33,7 @@ FooterActions places the first action at inline-end with reverse-inline flow acr
 
 Color mode uses data-bs-theme and follows system appearance without an explicit host selector; explicit selectors win. Default fonts are Geist Variable then Inter Variable, intentionally differing from upstream system fonts. Font entries supply actual faces and language fallbacks. Native card wrapping already provides the long-word behavior also supplied by UiContent outside cards.
 
-Clear uses Bootstrap Icons eraser artwork; more-vertical uses three-dots-vertical and menu-item reuses file-earmark with an independent semantic key. File previews use local scalable glyphs. Popup geometry, contrast and native visual behavior remain separately verified; the workspace does not impose an automated WCAG AA gate on this toolkit backend.
+Clear uses Bootstrap Icons eraser artwork; more-vertical uses three-dots-vertical and menu-item reuses file-earmark with an independent semantic key. File previews use local scalable glyphs. Verify popup geometry, contrast and focus appearance with the application’s Bootstrap theme.
 
 See [presentation](presentation.md), [strategy support](strategies.md), [collections](collections.md), [typography](typography.md) and [customization](customization.md).
 
