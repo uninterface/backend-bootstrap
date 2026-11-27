@@ -1128,6 +1128,12 @@ body,
 .bootstrap-navigation-surface[data-navigation-mode='horizontal'] {
   inline-size: 100%;
 }
+.bootstrap-navigation-surface[data-navigation-width='content'] {
+  inline-size: max-content;
+}
+.bootstrap-navigation-surface[data-navigation-width='full'] {
+  inline-size: 100%;
+}
 .bootstrap-navigation-surface[data-navigation-boundary='inline-end'] {
   border-inline-end: 1px solid var(--bs-border-color);
 }
