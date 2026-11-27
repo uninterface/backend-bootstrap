@@ -91,6 +91,28 @@ for (const width of [1280, 390]) {
 }
 
 for (const direction of ['ltr', 'rtl']) {
+  test(`Bootstrap vertical navigation keeps an inline badge beside its label in ${direction}`, async ({
+    page,
+  }) => {
+    await openFixture(page, {
+      mode: 'vertical-tree',
+      dir: direction,
+      rich: '1',
+    })
+    const item = page.getByRole('button', { name: 'Overview', exact: true })
+    await expect(item).toHaveAccessibleDescription('Recent activity')
+    const label = (await item
+      .getByText('Overview', { exact: true })
+      .boundingBox())!
+    const count = (await item.getByText('5', { exact: true }).boundingBox())!
+    const description = (await item.getByText('Recent activity').boundingBox())!
+    expect(count.y).toBeLessThan(label.y + label.height)
+    expect(count.y + count.height).toBeGreaterThan(label.y)
+    if (direction === 'rtl') expect(count.x + count.width).toBeLessThan(label.x)
+    else expect(count.x).toBeGreaterThan(label.x + label.width)
+    expect(description.y).toBeGreaterThanOrEqual(count.y + count.height - 1)
+  })
+
   for (const mode of [
     'horizontal',
     'vertical-tree',

@@ -1052,7 +1052,12 @@ body,
   text-align: start;
 }
 .bootstrap-navigation-item > .menu-item-content {
+  /* Bootstrap's menu column also stacks the inline roots of rich nav labels. */
+  display: block;
   min-width: 0;
+}
+.bootstrap-navigation-item > .menu-item-content > .menu-item-description {
+  display: block;
 }
 /* Slot artwork must not sit on an inline text baseline inside the native
    square. Keep the menu's icon size and first-line/description alignment. */

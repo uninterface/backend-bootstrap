@@ -111,6 +111,11 @@ Menus use the pinned Bootstrap 6 Menu implementation for Floating UI positioning
 
 Navigation applies native active styling to the exact current destination and its known ancestors, independently of expansion or focus. For Destinations → Asia → Singapore, Destinations remains active while closed; Asia and Singapore receive active styling when displayed. Only Singapore receives `aria-current="page"`; ancestor disclosure buttons retain `aria-expanded`. This follows the application-confirmed current key and the available entry tree, without loading unknown branches solely to decorate ancestry. Native hover/open styles can temporarily supersede the active appearance of a submenu trigger. Business authors supply entries and the current key; no caret or ancestor-presentation option is required.
 
+Navigation entry labels allow inline slot content such as a badge beside text.
+The label wrapper uses normal inline formatting within its allocation. The
+entry's optional description remains on a separate line with Bootstrap's
+description styling and its existing accessible association.
+
 A private controlled bridge is necessary because native submenu opening mutates DOM state without controlled branch events. Core controls lazy branch mounting, checked state and closing. The bridge adapts item discovery to logical groups, adds typeahead and controlled branch entry/exit, and excludes these instances from the uncontrolled document data API's open-instance set. Each surface retains native positioning observers; disposal removes them. This integration uses protected APIs from the pinned alpha version and must be reviewed on upgrades. Native context references are updated when the host or pointer location changes.
 
 Native menu JavaScript is imported individually; it installs Bootstrap's standard delegated data-API listeners. Uninterface hosts do not opt into those listeners with data attributes. Independently authored native Bootstrap menus can still use the data API. Do not initialize a second Menu instance on Uninterface-owned elements.

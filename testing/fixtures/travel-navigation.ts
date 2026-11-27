@@ -3,22 +3,30 @@ import { computed, h, nextTick, ref, toValue } from 'vue'
 import {
   createUiEntryControl,
   createUiNavigationControl,
+  UiBadge,
   UiContent,
   UiNavbar,
   UiNavMenu,
   UiRegionLayout,
   type UiNavMenuPresentation,
 } from '@uninterface/uninterface'
+import type { UiEntryViewNode } from '@uninterface/uninterface/backend'
 import { createUiApplication } from '@uninterface/uninterface/setup'
 
 export async function mountTravel(
   initialMode: UiNavMenuPresentation = 'horizontal',
+  richOverview = false,
 ) {
   const current = ref('overview')
   const mode = ref<UiNavMenuPresentation>(initialMode)
   const icon = { name: 'info' }
   const entries = createUiEntryControl([
-    { key: 'overview', label: 'Overview', icon },
+    {
+      key: 'overview',
+      label: 'Overview',
+      description: richOverview ? 'Recent activity' : undefined,
+      icon,
+    },
     {
       key: 'destinations',
       kind: 'submenu',
@@ -88,11 +96,33 @@ export async function mountTravel(
           {
             start: () => {
               const menu = () =>
-                h(UiNavMenu, {
-                  binding: navigation.bindings.navMenu,
-                  presentation: mode.value,
-                  'aria-label': 'Travel navigation',
-                })
+                h(
+                  UiNavMenu,
+                  {
+                    binding: navigation.bindings.navMenu,
+                    presentation: mode.value,
+                    'aria-label': 'Travel navigation',
+                  },
+                  richOverview
+                    ? {
+                        entry: ({
+                          entry,
+                        }: {
+                          entry: Exclude<
+                            UiEntryViewNode['entry'],
+                            { kind: 'separator' }
+                          >
+                        }) =>
+                          entry.key === 'overview'
+                            ? [
+                                h('span', 'Overview'),
+                                ' ',
+                                h(UiBadge, () => '5'),
+                              ]
+                            : entry.label,
+                      }
+                    : undefined,
+                )
               return sidebar.value
                 ? h(
                     UiContent,
