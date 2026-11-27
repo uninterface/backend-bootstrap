@@ -42,6 +42,13 @@ Inputs and groups reference the displayed error through `aria-describedby` while
 
 `UiLayout.vue` fulfills `layout.linear.v1`, `layout.division.v1`, `layout.reactive.v1`, `layout.wrap.v1`, `layout.align.v1`, and `layout.scroll.v1`. It consumes resolved options from core, allocates keyed children, preserves them during prop updates, and supplies backend spacing and scroll focus treatment. It works without a provider ancestor and never detects desktop/mobile itself. See **UiLayout** in `@uninterface/uninterface` (`docs/api/components/UiLayout.md`) for exact supported combinations and host-height requirements. Browser geometry verification is required in addition to declarations and DOM tests.
 
+### Layout separators
+
+`UiLayout.vue` supplies `layout.separator.v1` for `UiSeparator`. It paints a
+solid 1px line in the existing peer gap using Bootstrap's
+`--bs-border-color`. A short vertical line appears between horizontal peers
+on the same row. A horizontal line spans the layout between vertical peers.
+
 ## Button color and treatment
 
 `UiButton` consumes all supported theme roles independently of the six button variants (`button.color.v1` and `button.variant.v1`). Without an applicable strategy, omitted color/variant options default independently to secondary/filled. See **UiButton** in `@uninterface/uninterface` (`docs/api/components/UiButton.md`) for the contract.

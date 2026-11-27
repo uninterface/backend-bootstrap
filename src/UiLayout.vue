@@ -9,6 +9,7 @@
     flowSpacerItemStyle,
     flowSpacerLayoutStyle,
     startEndLayoutItemStyle,
+    UiLayoutSeparators,
     useUiLayoutResizeView,
   } from '@uninterface/uninterface/backend'
   import { uiFocusPresentation } from './focus'
@@ -178,5 +179,13 @@
         aria-hidden="true"
       />
     </template>
+    <UiLayoutSeparators
+      v-if="binding.separators?.length"
+      :root="resizeRoot"
+      :binding="binding"
+      :item-id="itemId"
+      color="var(--bs-border-color)"
+      thickness="var(--bootstrap-layout-separator-size)"
+    />
   </div>
 </template>
